@@ -1,8 +1,8 @@
 package hu.mrolcsi.android.eveoreprices.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +28,11 @@ public class PriceFragment extends Fragment {
     private Station station;
 
     @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
-        this.securityLevel = args.getInt(ARG_SECURITY_LEVEL);
-        this.station = (Station) args.getSerializable(ARG_STATION);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.securityLevel = getArguments().getInt(ARG_SECURITY_LEVEL);
+        this.station = (Station) getArguments().getSerializable(ARG_STATION);
     }
 
     @Override

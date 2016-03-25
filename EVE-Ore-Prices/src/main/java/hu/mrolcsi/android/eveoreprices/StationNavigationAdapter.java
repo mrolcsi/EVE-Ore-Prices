@@ -8,21 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import hu.mrolcsi.android.eveoreprices.models.Station;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.mrolcsi.android.eveoreprices.models.Station;
-
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.AMARR_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.AMARR_STATION;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.DODIXIE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.DODIXIE_STATION;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.HEK_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.HEK_STATION;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.JITA_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.JITA_STATION;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.RENS_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.RENS_STATION;
+import static hu.mrolcsi.android.eveoreprices.models.Constants.Stations.*;
 
 /**
  * Created with IntelliJ IDEA.

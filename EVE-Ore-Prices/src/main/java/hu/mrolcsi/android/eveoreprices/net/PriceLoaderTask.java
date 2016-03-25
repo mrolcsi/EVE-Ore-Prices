@@ -5,24 +5,22 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import hu.mrolcsi.android.eveoreprices.models.Constants;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -52,59 +50,54 @@ public class PriceLoaderTask extends AsyncTask<Integer, Integer, Float> {
         //check network state
         ConnectivityManager conMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED || conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
+        boolean hasInternet = false;
 
-            //notify user you are online
-            HttpClient httpclient = new DefaultHttpClient();
+        if (Build.VERSION.SDK_INT < 23) {
+            //old method
+            //noinspection deprecation
+            if (conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED
+                    || conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
+                hasInternet = true;
+            }
+        } else {
+            final NetworkInfo info = conMgr.getNetworkInfo(conMgr.getActiveNetwork());
+            if (info.getType() == ConnectivityManager.TYPE_WIFI || info.getType() == ConnectivityManager.TYPE_MOBILE) {
+                if (info.getState() == NetworkInfo.State.CONNECTED) {
+                    hasInternet = true;
+                }
+            }
+        }
 
-            String uri = null;
+
+        if (hasInternet) {
+            HttpURLConnection urlConnection = null;
             try {
-                uri = Uri.parse(Constants.URL_BASE)
+                String uri = Uri.parse(Constants.URL_BASE)
                         .buildUpon()
                         .appendQueryParameter(Constants.URL_PARAM_TYPEID, String.valueOf(oreId))
                         .appendQueryParameter(Constants.URL_PARAM_USESYSTEM, String.valueOf(stationId))
                         .build().toString();
-            } catch (NullPointerException e) {
-                Log.w(getClass().getName(), e);
-            }
 
-            // Prepare a request object
-            HttpGet httpget = new HttpGet(uri);
+                URL url = new URL(uri);
 
-            // Execute the request
-            HttpResponse response;
-            try {
-                response = httpclient.execute(httpget);
-                // Examine the response status
-                switch (response.getStatusLine().getStatusCode()) {
-                    case 200:
-                        // Get hold of the response entity
-                        HttpEntity entity = response.getEntity();
-                        // If the response does not enclose an entity, there is no need
-                        // to worry about connection release
+                //connect
+                urlConnection = (HttpURLConnection) url.openConnection();
 
-                        if (entity != null) {
-                            InputStream inStream = entity.getContent();
-                            String result = convertStreamToString(inStream);
-                            // now you have the string representation of the HTML request
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                String result = convertStreamToString(in);
 
-                            return parseMaxValueFromXml(result);
-                        }
-                        break;
-                    case 404:
-                        cancel(true);
-                    default:
-                        break;
+                // now you have the string representation of the HTML request
+                return parseMaxValueFromXml(result);
+            } catch (NullPointerException | IOException e) {
+                Log.w(getClass().getSimpleName(), e);
+                cancel(true);
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
                 }
-            } catch (ClientProtocolException e) {
-                Log.w(getClass().getName(), e);
-            } catch (IOException e) {
-                Log.w(getClass().getName(), e);
             }
-
-        } else if (conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.DISCONNECTED
-                || conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.DISCONNECTED) {
-            //notify user you are not online
+        } else {
+            //notify users they're are not online
             cancel(true);
         }
         return null;
@@ -121,13 +114,11 @@ public class PriceLoaderTask extends AsyncTask<Integer, Integer, Float> {
         StringBuilder sb = new StringBuilder();
 
         int i = 0;
-        String progress = "";
         String line;
         try {
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
 
-                progress += ".";
                 publishProgress(i++);
             }
         } catch (IOException e) {
@@ -159,17 +150,13 @@ public class PriceLoaderTask extends AsyncTask<Integer, Integer, Float> {
             final NodeList maxNodes = buyNodes.item(i).getChildNodes();
             final String maxValue = maxNodes.item(0).getNodeValue();
 
-            Log.d(getClass().getName(), "");
+            Log.d(getClass().getSimpleName(), "");
 
             return Float.valueOf(maxValue);
 
 
-        } catch (ParserConfigurationException e) {
-            Log.w(getClass().getName(), e);
-        } catch (SAXException e) {
-            Log.w(getClass().getName(), e);
-        } catch (IOException e) {
-            Log.w(getClass().getName(), e);
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            Log.w(getClass().getSimpleName(), e);
         }
         return -1;
     }

@@ -1,12 +1,13 @@
 package hu.mrolcsi.android.eveoreprices;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,7 @@ import hu.mrolcsi.android.eveoreprices.fragments.PriceFragment;
  * Time: 14:14
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     public static final int FRAGMENT_HIGHSEC = 0;
     public static final int FRAGMENT_LOWSEC = 1;
@@ -89,22 +90,22 @@ public class MainActivity extends Activity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                //getActionBar().setTitle(mDrawerSystemsList.getSelectedItem().toString());
+                //getSupportActionBar().setTitle(mDrawerSystemsList.getSelectedItem().toString());
                 invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                //getActionBar().setTitle(getTitle());
+                //getSupportActionBar().setTitle(getTitle());
                 invalidateOptionsMenu();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (getActionBar() != null) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
     }
 
@@ -139,7 +140,7 @@ public class MainActivity extends Activity {
         args.putSerializable(PriceFragment.ARG_STATION, stationsAdapter.getItem(stationsAdapter.getSelectedItem()));
         fragment.setArguments(args);
 
-        android.app.FragmentManager fm = getFragmentManager();
+        final FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, fragment).commit();
     }
 }

@@ -62,7 +62,6 @@ public class PriceListAdapter extends ArrayAdapter<List<Ore>> {
     private final LayoutInflater inflater;
     private List<Ore> ores;
 
-
     public PriceListAdapter(Context context, int securityLevel, Station station) {
         super(context, R.layout.pricelist_item);
         this.station = station;
