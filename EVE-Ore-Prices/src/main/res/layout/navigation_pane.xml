@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/left_drawer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/drawer_background"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/lblSystems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/navigation_separator"
+        android:padding="@dimen/margin_small"
+        android:text="@string/navigation_systems" />
+
+    <ListView
+        android:id="@+id/lvSystems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblSystems"
+        android:choiceMode="singleChoice"
+        android:divider="@color/navigation_separator"
+        android:dividerHeight="0.5dp" />
+
+    <TextView
+        android:id="@+id/lblStations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lvSystems"
+        android:background="@color/navigation_separator"
+        android:padding="@dimen/margin_small"
+        android:text="@string/navigation_stations" />
+
+    <ListView
+        android:id="@+id/lvStations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblStations"
+        android:choiceMode="singleChoice"
+        android:divider="@color/navigation_separator"
+        android:dividerHeight="0.5dp" />
+
+    <TextView
+        android:id="@+id/tvAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:drawableLeft="@android:drawable/ic_menu_info_details"
+        android:padding="@dimen/margin_small"
+        android:text="http://github.com/mrolcsi/\nEVE-Ore-Prices"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic" />
+
+</RelativeLayout>

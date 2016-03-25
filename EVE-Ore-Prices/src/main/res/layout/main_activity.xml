@@ -11,46 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:id="@+id/left_drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/drawer_background"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/navigation_separator"
-            android:padding="@dimen/margin_small"
-            android:text="@string/navigation_systems" />
-
-        <ListView
-            android:id="@+id/lvSystems"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:choiceMode="singleChoice"
-            android:divider="@color/navigation_separator"
-            android:dividerHeight="0.5dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/navigation_separator"
-            android:padding="@dimen/margin_small"
-            android:text="@string/navigation_stations" />
-
-        <ListView
-            android:id="@+id/lvStations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:choiceMode="singleChoice"
-            android:divider="@color/navigation_separator"
-            android:dividerHeight="0.5dp" />
-
-    </LinearLayout>
-
+    <include layout="@layout/navigation_pane" />
 
 </android.support.v4.widget.DrawerLayout>
