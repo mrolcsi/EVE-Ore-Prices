@@ -1,0 +1,115 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+    }
+}
+apply plugin: 'com.android.application'
+
+repositories {
+    jcenter()
+}
+
+def makeVersionCode = { ->
+    try {
+        def code = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', 'HEAD', '--count'
+            standardOutput = code
+        }
+        return Integer.parseInt(code.toString().trim())
+    }
+    catch (ignored) {
+        logger.error(ignored.printStackTrace())
+        return -1;
+    }
+}
+
+def makeVersionNameRelease = { ->
+    try {
+        def lastTag = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', '--tags', '--no-walk', '--max-count=1'
+            standardOutput = lastTag
+        }
+
+        def lastCommits = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', lastTag.toString().trim() + '..HEAD'
+            standardOutput = lastCommits
+        }
+
+        def versionName = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--abbrev=0'
+            standardOutput = versionName
+        }
+
+        return 'v' + versionName.toString().trim() + '-' + lastCommits.toString().trim()
+    }
+    catch (ignored) {
+        logger.error(ignored.printStackTrace())
+        return null;
+    }
+}
+
+def makeVersionNameDebug = { ->
+    try {
+        def lastTag = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', '--tags', '--no-walk', '--max-count=1'
+            standardOutput = lastTag
+        }
+
+        def lastCommits = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', lastTag.toString().trim() + '..HEAD', '--count'
+            standardOutput = lastCommits
+        }
+
+        def versionName = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--abbrev=0'
+            standardOutput = versionName
+        }
+
+        def currentBranch = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+            standardOutput = currentBranch
+        }
+
+        return 'v' + versionName.toString().trim() + '-' + lastCommits.toString().trim() + '/' + currentBranch.toString().trim()
+    }
+    catch (ignored) {
+        logger.error(ignored.printStackTrace())
+        return null;
+    }
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "hu.mrolcsi.android.eveoreprices"
+        minSdkVersion 9
+        targetSdkVersion 23
+        versionCode makeVersionCode()
+        versionName makeVersionNameRelease()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.0.1'
+}
