@@ -1,3 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EVE Ore Prices</string>
+    <string name="app_name">EVE OrePrices</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="ore_name_veldspar">Veldspar</string>
+    <string name="ore_name_concentratedveldspar">Concentrated Veldspar</string>
+    <string name="ore_name_denseveldspar">Dense Veldspar</string>
+    <string name="unit_iskperm3">ISK/m³</string>
+    <string name="ore_name_scordite">Scordite</string>
+    <string name="ore_name_condensedscordite">Condensed Scordite</string>
+    <string name="ore_name_massivescordite">Massive Scordite</string>
+    <string name="ore_name_pyroxeres">Pyroxeres</string>
+    <string name="ore_name_solidpyroxeres">Solid Pyroxeres</string>
+    <string name="ore_name_visciouspyroxeres">Viscious Pyroxeres</string>
+    <string name="ore_name_plagioclase">Plagioclase</string>
+    <string name="ore_name_azureplagioclase">Azure Plagioclase</string>
+    <string name="ore_name_richplagioclase">Rich Plagioclase</string>
+    <string name="ore_name_omber">Omber</string>
+    <string name="ore_name_silveryomber">Silvery Omber</string>
+    <string name="ore_name_goldenomber">Golden Omber</string>
+    <string name="ore_name_kernite">Kernite</string>
+    <string name="ore_name_luminouskernite">Luminous Kernite</string>
+    <string name="ore_name_fierykernite">Fiery Kernite</string>
+    <string name="security_high">High Sec</string>
+    <string name="security_low">Low Sec</string>
+    <string name="security_null">Null Sec</string>
+    <string name="navigation_systems">Systems</string>
+    <string name="navigation_stations">Stations</string>
+    <string name="ore_price_fetching">Fetching…</string>
+    <string name="ore_price_notavailable">N/A</string>
 </resources>
