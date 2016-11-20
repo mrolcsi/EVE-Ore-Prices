@@ -52,9 +52,26 @@ public abstract class Constants {
     }
 
     public static abstract class LowSecOres {
+        // TODO: Jaspet, Hemorphite, Hedbergite
+
+        public static final float JASPET_VOLUME = 2.0f;
+        public static final int JASPET_ID = 1226;
+        public static final int PURE_JASPET_ID = 17448;
+        public static final int PRISTINE_JASPET_ID = 17449;
+
+        public static final float HEMORPHITE_VOLUME = 3.0f;
+        public static final int HEMORPHITE_ID = 1231;
+        public static final int VIVID_HEMORPHITE_ID = 17444;
+        public static final int RADIANT_HEMORPHITE_ID = 17445;
+
+        public static final float HEDBERGITE_VOLUME = 3.0f;
+        public static final int HEDBERGITE_ID = 21;
+        public static final int VITRIC_HEDBERGITE_ID = 17440;
+        public static final int GLAZED_HEDBERGITE_ID = 17441;
     }
 
     public static abstract class NullSecOres {
+        // TODO: Gneiss, Dark Ochre, Crokite, Spodumain, Bistot, Arkonor, Mercoxit
     }
 
     public static abstract class Stations {

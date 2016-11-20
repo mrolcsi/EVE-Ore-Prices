@@ -17,30 +17,8 @@ import hu.mrolcsi.android.eveoreprices.models.Ore;
 import hu.mrolcsi.android.eveoreprices.models.Station;
 import hu.mrolcsi.android.eveoreprices.net.PriceLoaderTask;
 
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.AZURE_PLAGIOCLASE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.CONCENTRATED_VELDSPAR_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.CONDENSED_SCORDITE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.DENSE_VELDSPAR_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.FIERY_KERNITE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.GOLDEN_OMBER_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.KERNITE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.KERNITE_VOLUME;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.LUMINOUS_KERNITE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.MASSIVE_SCORDITE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.OMBER_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.OMBER_VOLUME;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.PLAGIOCLASE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.PLAGIOCLASE_VOLUME;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.PYROXERES_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.PYROXERES_VOLUME;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.RICH_PLAGIOCLASE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.SCORDITE_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.SCORDITE_VOLUME;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.SILVERY_OMBER_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.SOLID_PYROXERES_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.VELDSPAR_ID;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.VELDSPAR_VOLUME;
-import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.VISCIOUS_PYROXERES_ID;
+import static hu.mrolcsi.android.eveoreprices.models.Constants.HighSecOres.*;
+import static hu.mrolcsi.android.eveoreprices.models.Constants.LowSecOres.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -82,7 +60,7 @@ public class PriceListAdapter extends ArrayAdapter<List<Ore>> {
     }
 
     private void prepareHighSecOres() {
-        ores = new ArrayList<Ore>();
+        ores = new ArrayList<>();
 
         ores.add(new Ore(VELDSPAR_ID, getContext().getString(R.string.ore_name_veldspar), VELDSPAR_VOLUME));
         ores.add(new Ore(CONCENTRATED_VELDSPAR_ID, getContext().getString(R.string.ore_name_concentratedveldspar), VELDSPAR_VOLUME));
@@ -110,12 +88,23 @@ public class PriceListAdapter extends ArrayAdapter<List<Ore>> {
     }
 
     private void prepareLowSecOres() {
-        ores = new ArrayList<Ore>();
-        //TODO
+        ores = new ArrayList<>();
+
+        ores.add(new Ore(JASPET_ID, getContext().getString(R.string.ore_name_jaspet), JASPET_VOLUME));
+        ores.add(new Ore(PURE_JASPET_ID, getContext().getString(R.string.ore_name_purejaspet), JASPET_VOLUME));
+        ores.add(new Ore(PRISTINE_JASPET_ID, getContext().getString(R.string.ore_name_pristinejaspet), JASPET_VOLUME));
+
+        ores.add(new Ore(HEMORPHITE_ID, getContext().getString(R.string.ore_name_hemorphite), HEMORPHITE_VOLUME));
+        ores.add(new Ore(VIVID_HEMORPHITE_ID, getContext().getString(R.string.ore_name_vividhemorphite), HEMORPHITE_VOLUME));
+        ores.add(new Ore(RADIANT_HEMORPHITE_ID, getContext().getString(R.string.ore_name_radianthemorphite), HEMORPHITE_VOLUME));
+
+        ores.add(new Ore(HEDBERGITE_ID, getContext().getString(R.string.ore_name_hedbergite), HEDBERGITE_VOLUME));
+        ores.add(new Ore(VITRIC_HEDBERGITE_ID, getContext().getString(R.string.ore_name_vitrichedbergite), HEDBERGITE_VOLUME));
+        ores.add(new Ore(GLAZED_HEDBERGITE_ID, getContext().getString(R.string.ore_name_glazedhedbergite), HEDBERGITE_VOLUME));
     }
 
     private void prepareNullSecOres() {
-        ores = new ArrayList<Ore>();
+        ores = new ArrayList<>();
         //TODO
     }
 
